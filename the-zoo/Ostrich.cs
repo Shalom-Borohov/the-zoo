@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace the_zoo
 {
     internal class Ostrich : Animal
     {
-        private bool isHeadInGround { get; set; }
+        public bool IsHeadInGround { get; set; }
+
+        public virtual List<(string, object)> Serialize()
+        {
+            List<(string, object)> ostrichProps = base.Serialize();
+            ostrichProps.Add(("IsHeadInGround", this.IsHeadInGround));
+            ostrichProps.Insert(0, ("type", "Ostrich"));
+
+            return ostrichProps;
+        }
     }
 }

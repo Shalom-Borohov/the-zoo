@@ -2,22 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace the_zoo
 {
-    internal abstract class Animal
+    public enum Gender
     {
-        private enum Gender
-        {
-            Male,
-            Female,
-            Other,
-        }
+        Male,
+        Female,
+    }
 
-        private string name { get; set; }
-        private int age { get; set; }
-        private Gender gender { get; set; }
-        private string favoriteHumanWithFirstLetterOfName { get; set; }
+    internal class Animal : ISerializableObject
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public Gender Gender { get; set; }
+        public string FavoriteHumanName { get; set; }
+
+        public virtual List<(string, object)> Serialize()
+        {
+            List<(string, object)> animalProps = new List<(string, object)>()
+            {
+                ("Name", this.Name),
+                ("Age", this.Age),
+                ("Gender", this.Gender),
+                ("FavoriteHumanName", this.FavoriteHumanName)
+            };
+
+
+            return animalProps;
+        }
     }
 }
