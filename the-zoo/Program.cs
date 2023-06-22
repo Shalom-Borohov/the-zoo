@@ -10,10 +10,17 @@ List<Animal> animals = new List<Animal>
     new Tiger {Name = "Tigi", Age = 23, Gender = Gender.Male, FavoriteHumanName = "Tom", Stripes = 50, HumansEaten = 3},
 };
 
+IEnumerable<List<(string, object)>> animalsKeyValuePairsEnumerable = animals.Select(animal => animal.Serialize());
+List<List<(string, object)>> animalsKeyValuePairsLists = animalsKeyValuePairsEnumerable.ToList();
+
+JsonFormatter jsonFormatter = new JsonFormatter();
+CsvFormatter csvFormatter = new CsvFormatter();
+
+string json = jsonFormatter.Format(animalsKeyValuePairsLists);
+string csv = csvFormatter.Format(animalsKeyValuePairsLists);
+
 JsonSerializer jsonSerializer = new JsonSerializer();
 CsvSerializer csvSerializer = new CsvSerializer();
 
-IEnumerable<List<(string, object)>> animalsJsons = animals.Select(animal => animal.Serialize());
-
-jsonSerializer.SerializeToFile("animals.json", animalsJsons.ToList());
-csvSerializer.SerializeToFile("animals.csv", animalsJsons.ToList());
+jsonSerializer.SerializeToFile("animals.json", json);
+csvSerializer.SerializeToFile("animals.csv", csv);
