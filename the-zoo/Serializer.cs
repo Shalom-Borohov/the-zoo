@@ -8,6 +8,6 @@ namespace the_zoo
 {
     internal abstract class Serializer
     {
-        public abstract void SerializeToFile(string fileName, List<List<(string, object)>> keyValuePairsLists);
+        public abstract void SerializeToFile(string path, List<List<(string, object)>> keyValuePairsLists);
     }
 }

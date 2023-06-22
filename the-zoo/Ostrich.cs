@@ -11,7 +11,7 @@ namespace the_zoo
     {
         public bool IsHeadInGround { get; set; }
 
-        public virtual List<(string, object)> Serialize()
+        public override List<(string, object)> Serialize()
         {
             List<(string, object)> ostrichProps = base.Serialize();
             ostrichProps.Add(("IsHeadInGround", this.IsHeadInGround));

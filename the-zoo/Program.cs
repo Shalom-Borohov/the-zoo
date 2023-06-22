@@ -13,13 +13,7 @@ List<Animal> animals = new List<Animal>
 JsonSerializer jsonSerializer = new JsonSerializer();
 CsvSerializer csvSerializer = new CsvSerializer();
 
-// yes.Serialize().Select(i => $"{i.Key}: {i.Value}").ToList().ForEach(Console.WriteLine);
-
 IEnumerable<List<(string, object)>> animalsJsons = animals.Select(animal => animal.Serialize());
 
-//string singleAnimalsJson = $"[{Environment.NewLine}{string.Join($",{Environment.NewLine}", animalsJsons)}{Environment.NewLine}]";
-
-//Console.WriteLine(singleAnimalsJson);
-
-jsonSerializer.SerializeToFile(@"c:\temp\animals.json", animalsJsons.ToList());
-//csvSerializer.SerializeToFile(@"c:\temp\animals.csv", singleAnimalsJson);
+jsonSerializer.SerializeToFile("animals.json", animalsJsons.ToList());
+csvSerializer.SerializeToFile("animals.csv", animalsJsons.ToList());
