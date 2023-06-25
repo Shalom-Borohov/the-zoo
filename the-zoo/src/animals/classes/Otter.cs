@@ -1,4 +1,5 @@
-﻿using the_zoo.src.misc;
+﻿using System.Text.RegularExpressions;
+using the_zoo.src.misc;
 
 namespace the_zoo.src.animals
 {
@@ -7,6 +8,6 @@ namespace the_zoo.src.animals
         public Rock FavoriteRock { get; set; }
 
         public override string Serialize() =>
-            $"{'{'} \"type\": \"Otter\", {base.Serialize().TrimStart('{').TrimEnd('}')}\b, \"FavoriteRock\": {FavoriteRock.Serialize()} {'}'}";
+            $"{'{'} \"type\": \"Otter\", {Regex.Replace(base.Serialize(), "({| })", "")}, \"FavoriteRock\": {FavoriteRock.Serialize()} {'}'}";
     }
 }

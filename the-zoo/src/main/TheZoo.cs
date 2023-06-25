@@ -3,6 +3,7 @@ using the_zoo.src.misc.enums;
 using the_zoo.src.animals.enums;
 using the_zoo.src.misc;
 using the_zoo.src.fileWriters;
+using the_zoo.src.misc.classes;
 
 namespace the_zoo.src.main
 {
@@ -10,6 +11,12 @@ namespace the_zoo.src.main
     {
         public void Start()
         {
+            var root = Directory.GetCurrentDirectory();
+            var dotenv = Path.Combine(root, ".env");
+            DotEnv.Load(dotenv);
+
+            Console.WriteLine(Environment.GetEnvironmentVariable("FILE_TYPE"));
+
             var animals = new List<ISerializableObject>
             {
                 new Chameleon {CurrentColor = "Blue", Name = "Lizi", Age = 12, Gender = Gender.Male, FavoriteHumanName = "Liron" },
@@ -29,9 +36,8 @@ namespace the_zoo.src.main
             var jsonWriter = new JsonWriter();
             var csvWriter = new CsvWriter();
 
-            Console.WriteLine(animalsCsv);
-
             jsonWriter.WriteToFile("animals.json", animalsJson);
+            csvWriter.WriteToFile("animals.csv", animalsCsv);
         }
     }
 }

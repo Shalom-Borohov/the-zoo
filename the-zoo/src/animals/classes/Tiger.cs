@@ -1,4 +1,6 @@
-﻿namespace the_zoo.src.animals
+﻿using System.Text.RegularExpressions;
+
+namespace the_zoo.src.animals
 {
     internal class Tiger : Animal
     {
@@ -6,6 +8,6 @@
         public int HumansEaten { get; set; }
 
         public override string Serialize() =>
-            $"{'{'} \"type\": \"Tiger\", {base.Serialize().TrimStart('{').TrimEnd('}')}\b, \"Stripes\": {Stripes}, \"HumansEaten\": {HumansEaten} {'}'}";
+            $"{'{'} \"type\": \"Tiger\", {Regex.Replace(base.Serialize(), "({| })", "")}, \"Stripes\": {Stripes}, \"HumansEaten\": {HumansEaten} {'}'}";
     }
 }
