@@ -1,8 +1,8 @@
-﻿namespace the_zoo
+﻿namespace the_zoo.src.fileWriters
 {
-    internal class CsvSerializer : Serializer
+    internal class CsvWriter : IAbleToWrite
     {
-        public override void SerializeToFile(string path, string text)
+        public void WriteToFile(string path, string text)
         {
             if (!IsCsvFilePath(path)) throw new Exception("Path suffix should be 'csv'.");
 
