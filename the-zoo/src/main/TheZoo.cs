@@ -15,18 +15,7 @@ namespace the_zoo.src.main
             var dotenv = Path.Combine(root, ".env");
             DotEnv.Load(dotenv);
 
-            Console.WriteLine(Environment.GetEnvironmentVariable("FILE_TYPE"));
-
-            var animals = new List<ISerializableObject>
-            {
-                new Chameleon {CurrentColor = "Blue", Name = "Lizi", Age = 12, Gender = Gender.Male, FavoriteHumanName = "Liron" },
-                new Elephant {Name = "Pili", Age = 100, Gender = Gender.Female, FavoriteHumanName = "Piron", TrunkLength = 10, Tusks = 1 },
-                new Ostrich {Name = "Osti", Age = 40, Gender = Gender.Female, FavoriteHumanName = "Osnat", IsHeadInGround = true},
-                new Otter {Name = "Moshe", Age = 10, Gender = Gender.Male, FavoriteHumanName = "Mike", FavoriteRock = new Rock { Weight = 3 } },
-                new Shark {Name = "Amnon", Age = 30, Gender = Gender.Female, FavoriteHumanName = "Amit", IsLawyer = true, Type = SharkSpecies.Loan},
-                new Tiger {Name = "Tigi", Age = 23, Gender = Gender.Male, FavoriteHumanName = "Tom", Stripes = 50, HumansEaten = 3},
-            };
-
+            List<ISerializableObject> animals = CreateZoo();
             var jsonSerializer = new JsonSerializer();
             var csvSerializer = new CsvSerializer();
 
@@ -36,8 +25,22 @@ namespace the_zoo.src.main
             var jsonWriter = new JsonWriter();
             var csvWriter = new CsvWriter();
 
-            jsonWriter.WriteToFile("animals.json", animalsJson);
-            csvWriter.WriteToFile("animals.csv", animalsCsv);
+            string jsonFilePath = Environment.GetEnvironmentVariable("JSON_FILE_PATH");
+            string csvFilePath = Environment.GetEnvironmentVariable("CSV_FILE_PATH");
+
+            jsonWriter.WriteToFile(jsonFilePath, animalsJson);
+            csvWriter.WriteToFile(csvFilePath, animalsCsv);
         }
+
+        private List<ISerializableObject> CreateZoo() => new List<ISerializableObject>
+            {
+                new Chameleon {CurrentColor = "Blue", Name = "Lizi", Age = 12, Gender = Gender.Male, FavoriteHumanName = "Liron" },
+                new Elephant {Name = "Pili", Age = 100, Gender = Gender.Female, FavoriteHumanName = "Piron", TrunkLength = 10, Tusks = 1 },
+                new Ostrich {Name = "Osti", Age = 40, Gender = Gender.Female, FavoriteHumanName = "Osnat", IsHeadInGround = true},
+                new Otter {Name = "Moshe", Age = 10, Gender = Gender.Male, FavoriteHumanName = "Mike", FavoriteRock = new Rock { Weight = 3 } },
+                new Shark {Name = "Amnon", Age = 30, Gender = Gender.Female, FavoriteHumanName = "Amit", IsLawyer = true, Type = SharkSpecies.Loan},
+                new Tiger {Name = "Tigi", Age = 23, Gender = Gender.Male, FavoriteHumanName = "Tom", Stripes = 50, HumansEaten = 3},
+            };
+
     }
 }

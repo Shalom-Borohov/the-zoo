@@ -8,6 +8,6 @@ namespace the_zoo.src.animals
         public int Tusks { get; set; }
 
         public override string Serialize() =>
-            $"{'{'} \"type\": \"Elephant\", {Regex.Replace(base.Serialize(), "({| })", "")}, \"TrunkLength\": {TrunkLength}, \"Tusks\": {Tusks} {'}'}";
+            $"{'{'} \"type\": \"Elephant\", {base.RemoveBrackets(base.Serialize())}, \"TrunkLength\": {TrunkLength}, \"Tusks\": {Tusks} {'}'}";
     }
 }

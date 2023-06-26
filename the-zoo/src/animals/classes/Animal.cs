@@ -1,4 +1,5 @@
-﻿using the_zoo.src.misc.enums;
+﻿using System.Text.RegularExpressions;
+using the_zoo.src.misc.enums;
 
 namespace the_zoo.src.animals
 {
@@ -11,5 +12,7 @@ namespace the_zoo.src.animals
 
         public virtual string Serialize() =>
             $"{'{'}\"Name\": \"{Name}\", \"Age\": {Age}, \"Gender\": \"{Gender}\", \"FavoriteHumanName\": \"{FavoriteHumanName}\" {'}'}";
+
+        public virtual string RemoveBrackets(string json) => Regex.Replace(json, "({| })", "");
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System.Text.RegularExpressions;
+using the_zoo.src.serializers.interfaces;
 
 namespace the_zoo
 {
-    internal class JsonSerializer
+    internal class JsonSerializer : IAbleToSerialize
     {
         public string Serialize(List<ISerializableObject> serializables)
         {
             IEnumerable<string> serializedObjects = serializables.Select((serializable) => serializable.Serialize());
+            WrapInJsonArray(serializedObjects);
             string jsonArray = WrapInJsonArray(serializedObjects);
             string linedJson = AddNewLines(jsonArray);
             string indentedPropsJson = IndentProperties(linedJson);
